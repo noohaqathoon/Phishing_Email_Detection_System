@@ -1,18 +1,18 @@
 # Phishing_Email_Detection_System
 This project uses machine learning to classify emails as phishing or legitimate based on their content. It includes model training, evaluation, and a web interface.
-# 🛡️ Phishing Email Detection System
+# Phishing Email Detection System
 
 This project is an academic submission focused on using machine learning to detect phishing emails. It classifies emails as either **phishing** or **legitimate** using natural language processing (NLP) and a trained logistic regression model.
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 Phishing is one of the most common and dangerous types of cyberattacks. This system uses a supervised ML model to automatically analyze the content of emails and classify them in real time, providing a first line of defense against phishing threats.
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 - Build a machine learning model to detect phishing emails
 - Extract text features using NLP techniques
@@ -21,7 +21,7 @@ Phishing is one of the most common and dangerous types of cyberattacks. This sys
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Python**
 - **Libraries**:
@@ -32,7 +32,7 @@ Phishing is one of the most common and dangerous types of cyberattacks. This sys
 
 ---
 
-## 📂 Project Files
+## Project Files
 
 | File Name                           | Description                                 |
 |------------------------------------|---------------------------------------------|
@@ -45,7 +45,7 @@ Phishing is one of the most common and dangerous types of cyberattacks. This sys
 
 ---
 
-## 🔍 Model Summary
+## Model Summary
 
 - **Vectorization**: TF-IDF (Top 5000 words)
 - **Classifier**: Logistic Regression
@@ -55,13 +55,13 @@ Phishing is one of the most common and dangerous types of cyberattacks. This sys
 
 ---
 
-## 🚀 How to Use
+## How to Use
 
 ### 📁 Upload Required Files in Colab:
 - `phishing_model.pkl`
 - `vectorizer.pkl`
 
-### ▶️ Run the Following Code in Colab:
+### ▶Run the Following Code in Colab:
 
 ```python
 !pip install gradio joblib scikit-learn pandas numpy --quiet
