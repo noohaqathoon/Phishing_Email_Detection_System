@@ -2,60 +2,96 @@
 This project uses machine learning to classify emails as phishing or legitimate based on their content. It includes model training, evaluation, and a web interface.
 # 🛡️ Phishing Email Detection System
 
-This project is a machine learning-based system to detect phishing emails. It classifies emails as either **phishing** or **legitimate** using natural language processing (NLP) and a trained logistic regression model.
+This project is an academic submission focused on using machine learning to detect phishing emails. It classifies emails as either **phishing** or **legitimate** using natural language processing (NLP) and a trained logistic regression model.
 
 ---
 
 ## 📌 Project Overview
 
-Phishing is a major cybersecurity threat where attackers trick users into revealing sensitive information. This project aims to mitigate that threat using a supervised learning model trained on email content.
+Phishing is one of the most common and dangerous types of cyberattacks. This system uses a supervised ML model to automatically analyze the content of emails and classify them in real time, providing a first line of defense against phishing threats.
 
 ---
 
 ## 🎯 Objectives
 
-- Develop an ML model to classify emails as phishing or legitimate
-- Extract key features from email text
-- Train and evaluate the model on a labeled dataset
-- Deploy a user interface for real-time predictions
+- Build a machine learning model to detect phishing emails
+- Extract text features using NLP techniques
+- Evaluate model performance on labeled data
+- Provide an interactive interface using Gradio
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **Language**: Python  
+- **Python**
 - **Libraries**:
-  - `scikit-learn` – ML model and evaluation
-  - `pandas`, `numpy` – data handling
-  - `joblib` – model serialization
-  - `gradio` – web-based user interface
+  - `scikit-learn` – for machine learning
+  - `pandas`, `numpy` – for data processing
+  - `joblib` – for saving/loading the trained model
+  - `gradio` – for building a simple web interface
 
 ---
 
-## 📂 Files
+## 📂 Project Files
 
 | File Name                           | Description                                 |
 |------------------------------------|---------------------------------------------|
-| `phishing_detection.ipynb`         | Jupyter Notebook with the full pipeline     |
-| `emails_dataset.csv`               | Labeled dataset of phishing and legit emails|
-| `phishing_model.pkl`               | Trained ML model                            |
-| `vectorizer.pkl`                   | TF-IDF vectorizer for feature extraction    |
-| `Phishing_Email_Detection_System.pdf` | Project report and synopsis                |
-| `README.md`                        | Project documentation                       |
+| `phishing_detection.ipynb`         | Main Jupyter Notebook with code and steps   |
+| `emails_dataset.csv`               | Labeled dataset used for training/testing   |
+| `phishing_model.pkl`               | Saved trained model                         |
+| `vectorizer.pkl`                   | Saved TF-IDF vectorizer                     |
+| `Phishing_Email_Detection_System.pdf` | Project synopsis/report (PDF)            |
+| `README.md`                        | Project documentation (this file)           |
 
 ---
 
-## 🔍 Model Details
+## 🔍 Model Summary
 
-- **Preprocessing**: Cleaning text, replacing URLs/emails/numbers
-- **Feature Extraction**: TF-IDF Vectorizer (top 5000 features)
-- **Model**: Logistic Regression
-- **Accuracy**: 100% on test data (sample size: 10)
+- **Vectorization**: TF-IDF (Top 5000 words)
+- **Classifier**: Logistic Regression
+- **Evaluation**:
+  - **Accuracy**: 100% (on small test set)
+  - **Precision/Recall**: Perfect on sample data
 
 ---
 
 ## 🚀 How to Use
 
-1. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
+### 📁 Upload Required Files in Colab:
+- `phishing_model.pkl`
+- `vectorizer.pkl`
+
+### ▶️ Run the Following Code in Colab:
+
+```python
+!pip install gradio joblib scikit-learn pandas numpy --quiet
+
+import gradio as gr
+import joblib
+import re
+import string
+
+model = joblib.load("phishing_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
+
+def preprocess_text(text):
+    text = text.lower()
+    text = re.sub(r"http\S+", "url", text)
+    text = re.sub(r"\S+@\S+", "email", text)
+    text = re.sub(r"\d+", "number", text)
+    text = re.sub(rf"[{string.punctuation}]", " ", text)
+    return text
+
+def predict_email(email_text):
+    cleaned = preprocess_text(email_text)
+    vec = vectorizer.transform([cleaned])
+    prediction = model.predict(vec)[0]
+    return "Phishing Email" if prediction == 1 else "Legitimate Email"
+
+gr.Interface(
+    fn=predict_email,
+    inputs=gr.Textbox(lines=5, placeholder="Paste email content here..."),
+    outputs=gr.Text(label="Prediction"),
+    title="Phishing Email Detection System",
+    description="Classify emails as Phishing or Legitimate using a trained Machine Learning model."
+).launch()
