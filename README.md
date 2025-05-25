@@ -2,7 +2,7 @@
 This project uses machine learning to classify emails as phishing or legitimate based on their content. It includes model training, evaluation, and a web interface.
 # Phishing Email Detection System
 
-This project is an academic submission focused on using machine learning to detect phishing emails. It classifies emails as either **phishing** or **legitimate** using natural language processing (NLP) and a trained logistic regression model.
+This project is focused on using machine learning to detect phishing emails. It classifies emails as either **phishing** or **legitimate** using natural language processing (NLP) and a trained logistic regression model.
 
 ---
 
